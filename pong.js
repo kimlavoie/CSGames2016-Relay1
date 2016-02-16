@@ -204,6 +204,7 @@ Game.prototype.moveBall = function() {
 			break;
 	}
 
+    //Hit wall
 	if(this.BALL_POS.Y > this.CANVAS_SIZE.HEIGHT - this.BALL_SIZE.HEIGHT && this.BALL_DIRECTION == 2) //down -> bottom
 		this.BALL_DIRECTION = 6;
 	if(this.BALL_POS.Y < this.BALL_SIZE.HEIGHT && this.BALL_DIRECTION == 6) //bottom -> down
@@ -215,7 +216,39 @@ Game.prototype.moveBall = function() {
 	if(this.BALL_POS.Y > this.CANVAS_SIZE.HEIGHT - this.BALL_SIZE.HEIGHT && this.BALL_DIRECTION == 1) //right-down -> right-up
 		this.BALL_DIRECTION = 7;
 	if(this.BALL_POS.Y < this.BALL_SIZE.HEIGHT && this.BALL_DIRECTION == 7) //right-up -> right-down
-		this.BALL_DIRECTION = 1;
+	    this.BALL_DIRECTION = 1;
+
+    //Ht paddle
+
+    //Ball going right: 0, 1, 7
+    //ball goind left: 
+	if (this.BALL_POS.X >= 755  && this.BALL_POS.Y < this.paddles[1] + this.PADDLE_SIZE.HEIGHT && this.BALL_POS.Y > this.paddles[1] - this.PADDLE_SIZE.HEIGHT)
+	    if (this.BALL_DIRECTION == 0)
+	        this.BALL_DIRECTION = 4;
+	    else if (this.BALL_DIRECTION == 1)
+	        this.BALL_DIRECTION = 3;
+	    else
+	        this.BALL_DIRECTION = 5;
+	else if (this.BALL_POS.X <= 45  && this.BALL_POS.Y < this.paddles[0] + this.PADDLE_SIZE.HEIGHT && this.BALL_POS.Y > this.paddles[0] - this.PADDLE_SIZE.HEIGHT)
+	    if (this.BALL_DIRECTION == 4)
+	        this.BALL_DIRECTION = 0;
+	    else if (this.BALL_DIRECTION == 3)
+	        this.BALL_DIRECTION = 1;
+	    else
+	        this.BALL_DIRECTION = 7;
+
+	if (this.BALL_POS.X > 800) {
+	    this.SCORE_RIGHT++;
+	    this.BALL_POS.X = 400;
+	    this.BALL_POS.Y = 300;
+	    this.BALL_DIRECTION = 5;
+	}
+	else if (this.BALL_POS.X < 0) {
+	    this.SCORE_LEFT++;
+	    this.BALL_POS.X = 400;
+	    this.BALL_POS.Y = 300;
+	    this.BALL_DIRECTION = 1;
+	}
 };
 
 
